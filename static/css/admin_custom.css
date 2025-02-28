@@ -1,0 +1,28 @@
+:root {
+    --primary: rgb(7, 101, 101); /* Change primary color */
+    --secondary: #333333;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+.navbar {
+    background-color: var(--primary) !important;
+}
+
+.sidebar {
+    background-color: var(--dark) !important;
+}
+
+.brand-link {
+    color: var(--light) !important;
+}
+
+/* Control site logo size */
+/* Force logo size */
+.brand-link img {
+    width: 20px !important;   /* Fix width */
+    height: 20px !important;  /* Fix height */
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: contain;
+}

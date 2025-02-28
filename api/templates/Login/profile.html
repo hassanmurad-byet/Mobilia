@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}  Mobilia profile {% endblock title %}
+
+
+{% block main-content %}
+
+<div class="hero overlay">
+
+    <div class="row d-flex  justify-content-center align-items-center h-100">
+
+        <div class="col-md-7">
+            <!-- card p-3 py-4 -->
+            <div class="border text-center">
+
+                <div class="text-center">
+                    {% if user.users %}
+                   
+    
+
+
+                    {% endif %}
+
+                    <span class="bg-black p-1 px-4 rounded text-white">Pro</span>
+                    <h5 class="mt-2 mb-0 text-black">{{user.username}}</h5>
+                    <span class="text-black">{{user.email}}</span>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

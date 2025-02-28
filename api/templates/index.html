@@ -1,0 +1,282 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href={% static "favicon.png" %}>
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+		<!-- Bootstrap CSS -->
+		<link href= "{% static 'css/bootstraps.min.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.24.4/dist/css/bootstrap.min.css">
+
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href= "{% static 'css/tiny-sliders.css' %}" rel="stylesheet">
+		<link href= "{% static 'css/styles.css' %}"  rel="stylesheet">
+		<link href= "{% static 'css/mycss.css' %}"  rel="stylesheet">
+		<title>{% block title %} MOBILIA {% endblock title %} </title>
+		<link rel="icon" type="image/png" href="{% static 'images/mobilia.png' %}" style="width: 200px; height: 150px; background-color: white; filter: invert(1);">
+         
+		<!-- Include EmailJS SDK -->
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+     <style>
+			.fulls{
+				margin-top:-60px;
+			}
+		.navbar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			{% comment %} background-color: transparent; {% endcomment %}
+			background-color:rgb(7, 101, 101);
+			transition: background-color 0.3s ease-in-out; /* Smooth transition */
+			z-index: 1000; /* Ensure it stays above other elements */
+		}
+		
+		/* Navbar Background on Scroll */
+		.navbar.scrolled {
+			background-color:rgb(7, 101, 101); /* Change to your desired background color */
+			box-shadow: 0 2px 10px rgba(190, 133, 10, 0.1); /* Optional shadow effect */
+		}
+		.navbar-brand.scrolled{
+	        font-weight: bold;
+			filter: brightness(200); /* Darken the image */
+			transition: 0.3s ease-in-out;
+		}
+		.navbar-brand:hover{
+			filter: brightness(200);  transition: 0.3s ease-in-out;
+		}
+
+		.hover-black{ filter: brightness(.1);  transition: 0.3s ease-in-out;}
+
+       
+
+		.nav-items {
+			position: relative;
+			display: inline-block;
+		}
+		
+		.dropdown-text {
+			position: absolute;
+			top: 100%; /* Position below the image */
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 10px;
+			padding: 2px 5px;
+			display: none; /* Initially hidden */
+			white-space: nowrap;
+		}
+		
+		.nav-items:hover .dropdown-text {
+			display: flex; /* Show when hovering over .nav-items */
+		}
+		
+		.dropdown-item {
+			color: white;
+			text-decoration: none;
+			padding: 2px 5px;
+		}
+		
+		.dropdown-item:hover {
+			text-decoration: underline;
+		}
+
+		
+
+		
+     </style>
+
+
+	    <script>
+			 window.addEventListener('scroll', function () {
+				var navbar = document.querySelector('.navbar');
+				if (window.scrollY > 50) {  // If user scrolls down more than 50px
+					navbar.classList.add('scrolled');
+				} else {
+					navbar.classList.remove('scrolled');
+				}
+			}); 
+
+			window.addEventListener('scroll', function () {
+				var navbar = document.querySelector('.navbar-brand');
+				if (window.scrollY > 50) {  // If user scrolls down more than 50px
+					navbar.classList.add('scrolled');
+				} else {
+					navbar.classList.remove('scrolled');
+				}
+			});
+
+
+
+		
+		</script>
+
+	</head>
+
+	<body>
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark" arial-label="Furni navigation bar">
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'home' %}"><img src={% static "images/mobilia.png" %} alt="Image" style="width: 50px; height: 40px; filter: brightness(1.5);" > </a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="{% url 'home' %}">Home</a>
+						</li>
+						<li><a class="nav-link " href="{% url 'shop' %}">Shop</a></li>
+						<li><a class="nav-link " href="{% url 'about' %}">About us</a></li>
+						<li><a class="nav-link" href="{% url 'service' %}">Services</a></li>
+						<li><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+						<li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li class="nav-items">
+							<a class="nav-link" href="{% url 'profile' %}" style="position: relative;">
+								<img src="{% static 'images/user.svg' %}" alt="User" >	
+							</a>
+						<div class="dropdown-text">
+						{% if user.is_authenticated %}
+						<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+						{% else %}
+							<a href="{% url 'signup' %}" class="dropdown-item">Signup</a> 
+							<a href="{% url 'login' %}" class="dropdown-item">Login</a>
+						{% endif %}
+							
+						</div>
+						</li>
+						<li><a class="nav-link" href="cart.html"><img src={% static "images/cart.svg" %}></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- End Header/Navigation -->
+
+		{% block main-content %}
+
+		
+		{% endblock main-content %}
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src={% static "images/sofa.png" %} alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src={% static "images/envelope-outline.svg" %} alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo"><img src={% static "images/mobilia.png" %} alt="Image" class="img-fluid hover-black" style="width: 60px; height: 50px;"> </a></div>
+						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+						 <p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed by <a href="https://portfolio-hassan.onrender.com">Hassan Murad</a> 
+						 </br>	<spam>Software Eng. -RAM Software Solutions </spam>
+                         </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+	     <script src= "{% static 'js/bootstrap.bundle.mins.js' %}" ></script>
+		<script src= "{% static 'js/tiny-sliders.js' %}" ></script>
+		<script src= "{% static 'js/customs.js' %}"></script>  
+
+	</body>
+
+</html>
