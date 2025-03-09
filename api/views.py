@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
+from .models import *
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -10,7 +11,8 @@ def Home(request):
   return render(request, 'mobilia/home.html')
 
 def Shop(request):
-  return render(request, 'mobilia/shop.html' )
+  product = Product.objects.all()
+  return render(request, 'mobilia/shop.html',{'products':product} )
 
 def About(request):
   return render(request, 'mobilia/about.html' )
